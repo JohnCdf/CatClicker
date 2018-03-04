@@ -6,17 +6,17 @@
       <h3>CLICKS: {{clicks}}</h3>
       <i class="fa fa-bars" v-on:click="sideMenuToggle"></i>
     </header>
-    <img :src="imgsrc" v-on:click="incrementCounter" id="catimage" v-on:mouseleave="mouseLeave" v-on:mouseover="mouseOver"/>
+    <img :src="imgsrc" @click="incrementCounter" id="catimage" @mouseleave="mouseLeave" @mouseover="mouseOver"/>
 
     <video :src="vidsrc" autoplay muted loop poster="src/assets/logo.jpeg">
 
     </video>
     <div id="sideMenu">
-      <button type="button" class="btn btn-block btn-dark" v-on:click="sideMenuToggle">Close</button>
+      <button type="button" class="btn btn-block btn-dark" @click="sideMenuToggle">Close</button>
       <ul>
-        <li v-on:click="signOut">Sign Out<i class="fa fa-sign-out"></i></li>
-        <li v-on:click="toAboutPage">About Cat Clicker<i class="fa fa-info-circle"></i></li>
-        <li v-on:click="toLeaderBoards">Leader Boards<i class="fa fa-star"></i></li>
+        <li @click="signOut">Sign Out<i class="fa fa-sign-out"></i></li>
+        <li @click="toAboutPage">About Cat Clicker<i class="fa fa-info-circle"></i></li>
+        <li @click="toLeaderBoards">Leader Boards<i class="fa fa-star"></i></li>
       </ul>
 
     </div>
@@ -27,11 +27,124 @@
 import firebase from 'firebase';
 import router from '../router/index.js'
 
+import ranks from '../model/ranks.js'
 
 Audio.prototype.stop = function () {
     this.pause();
     this.currentTime = 0;
 };
+
+var enviorment = {
+  self: this,//reference to the model, because of the fact that it needs to be referenced inside an object.
+  baby: function(){
+    this.self.stopMusic()
+    this.self.imgsrc = 'src/assets/img/cat1.jpg'
+    this.self.vidsrc = 'src/assets/video/baby.mp4'
+    musiclist.baby.play()
+        this.baby = function(){//this chunk of code is in every enviorment function, it terminates the function so that it doesnt run over and over again each click, for performance issues
+          return
+        }
+  },
+  grown: function(){
+    this.self.stopMusic()
+    this.self.imgsrc = 'src/assets/img/cat2.jpg'
+    this.self.vidsrc = 'src/assets/video/grown.mp4'
+    musiclist.grown.play()
+        this.grown = function(){
+          return
+        }
+  },
+  danger: function(){
+    this.self.stopMusic()
+    this.self.imgsrc = 'src/assets/img/cat3.png'
+    this.self.vidsrc = 'src/assets/video/danger.mp4'
+    musiclist.danger.play()
+        this.danger = function(){
+          return
+        }
+  },
+  super1: function(){
+    this.self.stopMusic()
+    this.self.imgsrc = 'src/assets/img/super1.JPG'
+    this.self.vidsrc = 'src/assets/video/super1.mp4'
+    musiclist.super1.play()
+        this.super1 = function(){
+          return
+        }
+  },
+  super2: function(){
+    this.self.stopMusic()
+    this.self.imgsrc = 'src/assets/img/super2.jpg'
+    this.self.vidsrc = 'src/assets/video/super2.mp4'
+    musiclist.super2.play()
+        this.super2 = function(){
+          return
+        }
+  },
+  super3: function(){
+    this.self.stopMusic()
+    this.self.imgsrc = 'src/assets/img/super3.jpg'
+    this.self.vidsrc = 'src/assets/video/super3.mp4'
+    musiclist.super3.play()
+      this.super3 = function(){
+        return
+      }
+  },
+  super4: function(){
+    this.self.stopMusic()
+    this.self.imgsrc = 'src/assets/img/super4.jpg'
+    this.self.vidsrc = 'src/assets/video/super4.mp4'
+    musiclist.super4.play()
+      this.super4 = function(){
+        return
+      }
+  },
+  ultra: function(){
+    let self = this.self;
+    console.log('called ultra')
+    this.ultra = function(){
+      return
+    }
+    self.stopMusic()
+    self.imgsrc = 'src/assets/img/ultra.jpg'
+    self.vidsrc = 'src/assets/video/ultra.mp4'
+    musiclist.ultra.play()
+
+    setTimeout(function(){//wait one second and begin adding at a rate of 1/second
+      setInterval(function(){
+        self.incrementCounter()
+      },1000)
+    },1000)
+    setTimeout(function(){//wait 5 seconds and add 1/.5second
+      setInterval(function(){
+        self.incrementCounter()
+      },500)
+    },5000)
+    setTimeout(function(){//wait 10 and 1/.25second
+      setInterval(function(){
+        self.incrementCounter()
+      },25)
+    },10000)
+
+    setTimeout(function(){//wait 40 seconds and begin super increment
+      setInterval(function(){
+        self.incrementCounter()
+      },10)
+      setTimeout(function(){//wait 10 seconds after line 154 and add every milisecond
+        setInterval(function(){
+          self.incrementCounter()
+        },1)
+      },10000)
+    },40000)
+
+
+    setTimeout(function(){//wait 1.7minutes after line 154 and add every milisecond
+      setInterval(function(){
+        self.incrementCounter()
+      },1)
+    },100000)
+  }
+}
 
 var config = {
     apiKey: "AIzaSyB7N6v3UHU7SHvoUJEThIlP4RlVjB5qg88",
@@ -53,137 +166,125 @@ export default {
       useruid: '',
 
       imgsrc: '',
-      vidsrc: '',
-
-      musiclist: {
-        baby: new Audio("src/assets/audio/baby.mp3"),
-        grown: new Audio("src/assets/audio/grown.mp3"),
-        danger: new Audio("src/assets/audio/danger.mp3"),
-        super1: new Audio("src/assets/audio/super1.mp3"),
-        super2: new Audio("src/assets/audio/super2.mp3"),
-        super3: new Audio("src/assets/audio/super3.mp3"),
-        super4: new Audio("src/assets/audio/super4.mp3"),
-        ultra: new Audio("src/assets/audio/ultra.mp3")
-      },
-      enviorment: {
-        self: this,//reference to the model, because of the fact that it needs to be referenced inside an object.
-        baby: function(){
-          this.self.stopMusic()
-          this.self.imgsrc = 'src/assets/img/cat1.jpg'
-          this.self.vidsrc = 'src/assets/video/baby.mp4'
-          this.self.musiclist.baby.play()
-              this.baby = function(){//this chunk of code is in every enviorment function, it terminates the function so that it doesnt run over and over again each click, for performance issues
-                return
-              }
-        },
-        grown: function(){
-          this.self.stopMusic()
-          this.self.imgsrc = 'src/assets/img/cat2.jpg'
-          this.self.vidsrc = 'src/assets/video/grown.mp4'
-          this.self.musiclist.grown.play()
-              this.grown = function(){
-                return
-              }
-        },
-        danger: function(){
-          this.self.stopMusic()
-          this.self.imgsrc = 'src/assets/img/cat3.png'
-          this.self.vidsrc = 'src/assets/video/danger.mp4'
-          this.self.musiclist.danger.play()
-              this.danger = function(){
-                return
-              }
-        },
-        super1: function(){
-          this.self.stopMusic()
-          this.self.imgsrc = 'src/assets/img/super1.JPG'
-          this.self.vidsrc = 'src/assets/video/super1.mp4'
-          this.self.musiclist.super1.play()
-              this.super1 = function(){
-                return
-              }
-        },
-        super2: function(){
-          this.self.stopMusic()
-          this.self.imgsrc = 'src/assets/img/super2.jpg'
-          this.self.vidsrc = 'src/assets/video/super2.mp4'
-          this.self.musiclist.super2.play()
-              this.super2 = function(){
-                return
-              }
-        },
-        super3: function(){
-          this.self.stopMusic()
-          this.self.imgsrc = 'src/assets/img/super3.jpg'
-          this.self.vidsrc = 'src/assets/video/super3.mp4'
-          this.self.musiclist.super3.play()
-            this.super3 = function(){
-              return
-            }
-        },
-        super4: function(){
-          this.self.stopMusic()
-          this.self.imgsrc = 'src/assets/img/super4.jpg'
-          this.self.vidsrc = 'src/assets/video/super4.mp4'
-          this.self.musiclist.super4.play()
-            this.super4 = function(){
-              return
-            }
-        },
-        ultra: function(){
-          let self = this.self;
-          console.log('called ultra')
-          this.ultra = function(){
-            return
-          }
-          self.stopMusic()
-          self.imgsrc = 'src/assets/img/ultra.jpg'
-          self.vidsrc = 'src/assets/video/ultra.mp4'
-          self.musiclist.ultra.play()
-
-          setTimeout(function(){//wait one second and begin adding at a rate of 1/second
-            setInterval(function(){
-              self.incrementCounter()
-            },1000)
-          },1000)
-          setTimeout(function(){//wait 5 seconds and add 1/.5second
-            setInterval(function(){
-              self.incrementCounter()
-            },500)
-          },5000)
-          setTimeout(function(){//wait 10 and 1/.25second
-            setInterval(function(){
-              self.incrementCounter()
-            },25)
-          },10000)
-
-          setTimeout(function(){//wait 40 seconds and begin super increment
-            setInterval(function(){
-              self.incrementCounter()
-            },10)
-            setTimeout(function(){//wait 10 seconds after line 154 and add every milisecond
-              setInterval(function(){
-                self.incrementCounter()
-              },1)
-            },10000)
-          },40000)
-
-
-          setTimeout(function(){//wait 1.7minutes after line 154 and add every milisecond
-            setInterval(function(){
-              self.incrementCounter()
-            },1)
-          },100000)
-        }
-      }
+      vidsrc: ''
     }
+  },
+  computed: {
+    rank : function(){//function check
+      let clicks = this.clicks;
+
+      if (clicks == '...') {//this is so it doesnt begin showing assets before user has been identified
+              return
+      }
+                if (clicks < 20){
+                    enviorment.baby()//
+                    return "Newborn"
+                }
+                if(clicks < 70){
+                    enviorment.baby()//
+                    return "Infant"
+                }
+                if(clicks < 120){
+                    enviorment.baby()//
+                    return "Child"
+                }
+                if (clicks <250){
+                    enviorment.baby()//
+                    return "Teen"
+                }
+                if (clicks <380){
+                    enviorment.grown()//
+                    return "Adult"
+                }
+                if (clicks <550){
+                    enviorment.grown()//
+                    return "Big boi"
+                }
+                if(clicks < 790){
+                    enviorment.danger()
+                    return "Ninja"
+                }
+                if(clicks < 1000){
+                    enviorment.danger()
+                    return "Veteran"
+                }
+                if(clicks < 1400){
+                    enviorment.super1()
+                    return "Dragon"
+                }
+                if(clicks < 2012){
+                    enviorment.super1()
+                    return "Mountain Splitter"
+                }
+                if(clicks < 3650){
+                    enviorment.super2()
+                    return "Continent Wiper"
+                }
+                if(clicks < 5000){
+                    enviorment.super2()
+                    return "Multi Continent Breaker"
+                }
+                if(clicks < 5500){
+                    enviorment.super2()
+                    return "Planet Surface Blaster"
+                }
+                if(clicks < 6254){
+                    enviorment.super2()
+                    return "Planet Buster"
+                }
+                if(clicks < 7000){
+                    enviorment.super3()
+                    return "Multi Planet Annihilator"
+                }
+                if(clicks < 7800){
+                    enviorment.super3()
+                    return "Star Destroyer"
+                }
+                if(clicks < 8500){
+                    enviorment.super3()
+                    return "Solar System wiper"
+                }
+                if(clicks < 10000){
+                    enviorment.super3()
+                    return "Multi-Solar-System Engulfer"
+                }
+                if(clicks < 11000){
+                    enviorment.super4()
+                    return "Galaxy Splitter"
+                }
+                if(clicks < 12500){
+                    enviorment.super4()
+                    return "Galactic Cataclysm"
+                }
+                if(clicks < 13750){
+                    enviorment.ultra()
+                    return "Universe Giga Canon"
+                }
+                if (clicks <13800) {
+                  enviorment.ultra()
+                    return "Multi Universe Devastator"
+                }
+                if (clicks < 14000) {
+                  enviorment.ultra()
+                    return "✙The One above all✙"
+                }
+                if (clicks < 17000) {
+                  enviorment.ultra()
+                    return "Truth"
+                } else {
+                  enviorment.ultra()
+                  return "∞The Beyonder∞"
+                }
+
+
+        }
+
   },
   methods: {
     incrementCounter: function(){
-      let self = this
-      self.clicks++
+      this.clicks++
 
-      firebase.database().ref(`users/${self.useruid}/clicks`).set(self.clicks)
+      firebase.database().ref(`users/${this.useruid}/clicks`).set(this.clicks)
     },
     showSignIn: function(){
       this.stopMusic()
@@ -211,10 +312,9 @@ export default {
       });
     },
     stopMusic: function(){
-      let self = this
-      for (var i in self.musiclist) {//this will stop every song in the music list before redirecting to the about page
-        if (self.musiclist.hasOwnProperty(i)) {
-          self.musiclist[i].stop()
+      for (var i in musiclist) {//this will stop every song in the music list before redirecting to the about page
+        if (musiclist.hasOwnProperty(i)) {
+          musiclist[i].stop()
         }
       }
     },
@@ -225,117 +325,7 @@ export default {
     mouseOver: function(){
       document.getElementById("catimage").style.opacity = "1";
     }
-  },
-  computed: {
-    rank: function(){//function check
 
-            let self = this;
-            let clicks = self.clicks
-            if (clicks == '...') {//this is so it doesnt begin showing assets before user has been identified
-              return
-            }
-                if (clicks < 20){
-                    self.enviorment.baby()//
-                    return "Newborn"
-                }
-                if(clicks < 70){
-                    self.enviorment.baby()//
-                    return "Infant"
-                }
-                if(clicks < 120){
-                    self.enviorment.baby()//
-                    return "Child"
-                }
-                if (clicks <250){
-                    self.enviorment.baby()//
-                    return "Teen"
-                }
-                if (clicks <380){
-                    self.enviorment.grown()//
-                    return "Adult"
-                }
-                if (clicks <550){
-                    self.enviorment.grown()//
-                    return "Big boi"
-                }
-                if(clicks < 790){
-                    self.enviorment.danger()
-                    return "Ninja"
-                }
-                if(clicks < 1000){
-                    self.enviorment.danger()
-                    return "Veteran"
-                }
-                if(clicks < 1400){
-                    self.enviorment.super1()
-                    return "Dragon"
-                }
-                if(clicks < 2012){
-                    self.enviorment.super1()
-                    return "Mountain Splitter"
-                }
-                if(clicks < 3650){
-                    self.enviorment.super2()
-                    return "Continent Wiper"
-                }
-                if(clicks < 5000){
-                    self.enviorment.super2()
-                    return "Multi Continent Breaker"
-                }
-                if(clicks < 5500){
-                    self.enviorment.super2()
-                    return "Planet Surface Blaster"
-                }
-                if(clicks < 6254){
-                    self.enviorment.super2()
-                    return "Planet Buster"
-                }
-                if(clicks < 7000){
-                    self.enviorment.super3()
-                    return "Multi Planet Annihilator"
-                }
-                if(clicks < 7800){
-                    self.enviorment.super3()
-                    return "Star Destroyer"
-                }
-                if(clicks < 8500){
-                    self.enviorment.super3()
-                    return "Solar System wiper"
-                }
-                if(clicks < 10000){
-                    self.enviorment.super3()
-                    return "Multi-Solar-System Engulfer"
-                }
-                if(clicks < 11000){
-                    self.enviorment.super4()
-                    return "Galaxy Splitter"
-                }
-                if(clicks < 12500){
-                    self.enviorment.super4()
-                    return "Galactic Cataclysm"
-                }
-                if(clicks < 13750){
-                    self.enviorment.ultra()
-                    return "Universe Giga Canon"
-                }
-                if (clicks <13800) {
-                  self.enviorment.ultra()
-                    return "Multi Universe Devastator"
-                }
-                if (clicks < 14000) {
-                  self.enviorment.ultra()
-                    return "✙The One above all✙"
-                }
-                if (clicks < 17000) {
-                  self.enviorment.ultra()
-                    return "Truth"
-                } else {
-                  self.enviorment.ultra()
-                  return "∞The Beyonder∞"
-                }
-
-
-        }
   },
   beforeMount() {//Will set up observation for user authentication before being mounted, to make sure user is always signed in
     let self = this;
@@ -354,6 +344,7 @@ export default {
       });
 
   }
+
 }
 </script>
 
@@ -364,9 +355,9 @@ h1, h2 {
 }
 
 header {
-  background-color: #161616;
+  background-color: #F85032;
   color: #fcfafb;
-  width: 100vw;
+  width: 100%;
 
   display: inline-flex;
   justify-content: space-between;
