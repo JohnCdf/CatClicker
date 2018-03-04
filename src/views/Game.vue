@@ -99,7 +99,7 @@ export default {
           this.self.imgsrc = 'src/assets/img/super1.JPG'
           this.self.vidsrc = 'src/assets/video/super1.mp4'
           this.self.musiclist.super1.play()
-              this.danger = function(){
+              this.super1 = function(){
                 return
               }
         },
