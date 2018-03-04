@@ -353,11 +353,6 @@ export default {
                 });
       });
 
-
-//TESTING HERE
-      setInterval(function(){
-        self.incrementCounter()
-      },1)
   }
 }
 </script>
