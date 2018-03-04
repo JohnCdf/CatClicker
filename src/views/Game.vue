@@ -73,7 +73,7 @@ export default {
           this.self.vidsrc = 'src/assets/video/baby.mp4'
           this.self.musiclist.baby.play()
               this.baby = function(){//this chunk of code is in every enviorment function, it terminates the function so that it doesnt run over and over again each click, for performance issues
-
+                return
               }
         },
         grown: function(){
@@ -82,7 +82,7 @@ export default {
           this.self.vidsrc = 'src/assets/video/grown.mp4'
           this.self.musiclist.grown.play()
               this.grown = function(){
-
+                return
               }
         },
         danger: function(){
@@ -91,7 +91,7 @@ export default {
           this.self.vidsrc = 'src/assets/video/danger.mp4'
           this.self.musiclist.danger.play()
               this.danger = function(){
-
+                return
               }
         },
         super1: function(){
@@ -100,7 +100,7 @@ export default {
           this.self.vidsrc = 'src/assets/video/super1.mp4'
           this.self.musiclist.super1.play()
               this.danger = function(){
-
+                return
               }
         },
         super2: function(){
@@ -109,7 +109,7 @@ export default {
           this.self.vidsrc = 'src/assets/video/super2.mp4'
           this.self.musiclist.super2.play()
               this.super2 = function(){
-
+                return
               }
         },
         super3: function(){
@@ -118,7 +118,7 @@ export default {
           this.self.vidsrc = 'src/assets/video/super3.mp4'
           this.self.musiclist.super3.play()
             this.super3 = function(){
-
+              return
             }
         },
         super4: function(){
@@ -127,7 +127,7 @@ export default {
           this.self.vidsrc = 'src/assets/video/super4.mp4'
           this.self.musiclist.super4.play()
             this.super4 = function(){
-
+              return
             }
         },
         ultra: function(){
@@ -316,22 +316,22 @@ export default {
                 }
                 if(clicks < 13750){
                     self.enviorment.ultra()
-                    return "Gravity Breaker"
+                    return "Universe Giga Canon"
                 }
                 if (clicks <13800) {
                   self.enviorment.ultra()
-                    return "Reality Warper"
+                    return "Multi Universe Devastator"
                 }
                 if (clicks < 14000) {
                   self.enviorment.ultra()
-                    return "Ascended"
+                    return "✙The One above all✙"
                 }
                 if (clicks < 17000) {
                   self.enviorment.ultra()
-                    return "∞"
+                    return "Truth"
                 } else {
                   self.enviorment.ultra()
-                  return "The Beyonder"
+                  return "∞The Beyonder∞"
                 }
 
 
@@ -353,6 +353,11 @@ export default {
                 });
       });
 
+
+//TESTING HERE
+      setInterval(function(){
+        self.incrementCounter()
+      },1)
   }
 }
 </script>
