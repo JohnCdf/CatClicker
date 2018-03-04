@@ -352,12 +352,6 @@ export default {
                     self.clicks = snapshot.child("clicks").val()
                 });
       });
-
-
-//TESTING HERE
-      setInterval(function(){
-        self.incrementCounter()
-      },1)
   }
 }
 </script>
