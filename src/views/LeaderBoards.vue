@@ -12,7 +12,7 @@
         <tr v-for="(user,index) in usersList">
           <td>#{{index+1}}</td>
           <td>{{user.name}}</td>
-          <td v-if="user.clicks < 15000">{{user.clicks}}</td>
+          <td v-if="user.clicks <= 500000">{{user.clicks}}</td>
           <td v-else>∞</td>
         </tr>
       </table>
@@ -57,9 +57,10 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
 
 #LeaderBoards{
+  text-align: center;
   min-height: 100vh;
   background: #141819;
   color: #b7b7b4;
@@ -71,8 +72,10 @@ export default {
   background-position: center;
   background-size: cover;
   height: 100%;
+  max-width: 100%;
 }
 table{
+  width: 90%;
   color: #b7b7b4;
   margin:auto;
   border: 2px solid #9d9c9b;
@@ -80,7 +83,6 @@ table{
 th{
   background: #000000;
   line-height: 50px;
-  padding:0 50px;
   border: 1px solid #9d9c9b;
 }
 tr{

@@ -13,7 +13,7 @@
   <ul>
     <li>#javascript</li>
     <li>#htmlcss</li>
-    <li>#vuereact</li>
+    <li>#react</li>
   </ul>
   <hr>
   <div class="container content">
@@ -32,7 +32,7 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
 #aboutBG{
   background-color: #45b649;
   background-image: url('../assets/AboutBackdrop.jpg');
@@ -72,5 +72,15 @@ hr{
   padding: 0 1em;
 }
 
-
+@media screen and (max-width: 700px){
+#myCard {
+  width: 90vw;
+}
+}
+@media screen and (max-width: 390px){
+  #myCard {
+    width: 100vw;
+    font-size: 16px;
+  }
+}
 </style>

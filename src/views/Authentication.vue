@@ -73,7 +73,7 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
 #Authentication{
   min-height: 100vh;
   padding:0;
