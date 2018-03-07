@@ -8,7 +8,7 @@
     <button type="button" name="button" class="btn btn-info" v-on:click="logIn">Log In ツ</button><br>
     <h3 id="or">-OR-</h3>
     <h2>Sign Up</h2>
-    <input type="text" placeholder="Username" id="SignName"><br>
+    <input type="text" placeholder="Cat Name" id="SignName"><br>
     <input type="Email" placeholder="Email" id="SignEmail"><br>
     <input type="password" placeholder="Password" value="" id="SignPass"><br>
     <button type="button" name="button" class="btn btn-success" v-on:click="signUp">Sign Up  ✔</button>

@@ -3,13 +3,13 @@ import {store} from '../store/store.js';
 import musiclist from './musiclist.js'
 import gamefunctions from './functions.js'
 
-const enviorment = {
+const environment = {
   baby: function(){
     gamefunctions.stopMusic()
     store.state.imgsrc = 'src/assets/img/cat1.jpg'
     store.state.vidsrc = 'src/assets/video/baby.mp4'
     musiclist.baby.play()
-        this.baby = function(){//this chunk of code is in every enviorment function, it terminates the function so that it doesnt run over and over again each click, for performance issues
+        this.baby = function(){//this chunk of code is in every environment function, it terminates the function so that it doesnt run over and over again each click, for performance issues
           return
         }
   },
@@ -92,4 +92,4 @@ const enviorment = {
   }
 }
 
-export default enviorment;
+export default environment;

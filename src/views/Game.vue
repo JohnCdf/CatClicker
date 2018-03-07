@@ -1,18 +1,6 @@
 <template>
   <div id="game">
-    <div id="sideMenu">
-      <div id="sideMenuHead">
-        <h1>Menu</h1>
-      </div>
-        <button class="btn btn-block" @click="signOut">Sign Out<i class="fa fa-sign-out"></i></button>
-        <button class="btn btn-block" @click="routeTo('About')">About Cat Clicker<i class="fa fa-info-circle"></i></button>
-        <button class="btn btn-block" @click="routeTo('LeaderBoards')">Leader Boards<i class="fa fa-star"></i></button>
-
-    </div>
-
-    <div id="main-display">
       <nav class="navbar">
-          <span class="btn btn-light fa fa-bars"@click="sideMenuToggle"></span>
             <span id="nameDisplay" class="navbar-brand" href="#">{{name}}</span>
             <span class="navbar-brand" href="#">{{clicks}}</span>
             <span class="navbar-brand" href="#">{{rank}}</span>
@@ -20,8 +8,13 @@
       <img :src="imgsrc" @click="incrementCounter" id="catimage" @mouseleave="mouseLeave" @mouseover="mouseOver"/>
       <video :src="vidsrc" autoplay muted loop poster="src/assets/logo.jpeg"></video>
 
+      <footer class="navbar">
+        <button class="fa fa-star navbar-brand" @click="routeTo('LeaderBoards')"></button>
 
-    </div>
+        <button class="fa fa-info-circle navbar-brand" @click="routeTo('About')"></button>
+
+        <button class="fa fa-sign-out navbar-brand" @click="signOut"></button>
+      </footer>
 
 
   </div>
@@ -33,7 +26,7 @@ import firebase from 'firebase';
 import router from '../router/index.js'
 
 import musiclist from '../models/musiclist.js'
-import enviorment from '../models/enviorments.js'
+import environment from '../models/environments.js'
 import gamefunctions from '../models/functions.js'
 
 import {LeaderBoards} from './LeaderBoards.vue'
@@ -66,20 +59,33 @@ export default {
       router.push(name)
     },
 
-    sideMenuToggle: function(){
-      let toggle = function(){if(Number(  $("#sideMenu").outerWidth()  ) === 0){return '100%';}return 0;};//this function returns the width the sidebar should be made depending on its current width
-
-      $("#sideMenu").animate({
-        width: toggle()
-      });
-    },
-
     mouseLeave: function(){
       document.getElementById("catimage").style.opacity = "0.2";
     },
     mouseOver: function(){
       document.getElementById("catimage").style.opacity = "1";
     }
+  },
+  beforeMount() {//Will log in the user when mounting
+    let self = this;
+      firebase.auth().onAuthStateChanged(function(user) {//whenever there is a change in authorisation
+        if(!user){//if user is not logged return and sign in
+          self.routeTo('Account')
+          return
+        }
+
+        self.$store.state.useruid = user.uid
+
+        firebase.database().ref("users/"+user.uid).on("value", function(snapshot) {//if there is a change in the database, make it a centralized state
+            self.$store.state.name = snapshot.child("name").val()
+            self.$store.state.clicks = snapshot.child("clicks").val()
+
+
+        });
+
+        gamefunctions.startMethod()//begins data refresh in game functions
+      });
+
   },
   computed: {
         name: function(){
@@ -98,29 +104,6 @@ export default {
           return this.$store.getters.rank
         }
 
-  },
-  beforeMount() {//WIll log in the user when mounting
-    let self = this;
-      firebase.auth().onAuthStateChanged(function(user) {//whenever there is a change in authorisation
-        if(!user){//if user is not logged return and sign in
-          self.routeTo('Account')
-          return
-        }
-
-        self.$store.state.useruid = user.uid//else , set the useruid a centralized state for further referring
-
-        firebase.database().ref("users/"+user.uid).on("value", function(snapshot) {//if there is a change in the database, make it a centralized state
-            self.$store.state.name = snapshot.child("name").val()
-            self.$store.state.clicks = snapshot.child("clicks").val()
-
-            gamefunctions.startMethod()//begins data refresh in game functions
-        });
-
-
-
-
-      });
-
   }
 }
 </script>
@@ -134,8 +117,6 @@ h1, h2 {
 #game {
   width:100vw;
   height:100vh;
-  display: inline-flex;
-  justify-content: center;
 }
 #main-display{
   width:100%;
@@ -159,7 +140,7 @@ video {
 }
 
 #catimage {
-  width: 70%;
+  max-height: 80vh;
   margin: auto;
   right:0;
   left: 0;
@@ -168,36 +149,27 @@ video {
   transition: .05s all ease-in-out;
 }
 #catimage:active{
-  width: 69%;
+
 }
 
-#sideMenu {
-  height: 100vh;
-  width: 0;
-  overflow: hidden;
-  background:#FEFEFE;
-  color: black;
-
-  top: 0;
-  bottom: 0;
-  left: 0;
+footer{
+  width:50%;
+  margin:auto;
+  background: transparent;
 }
-#sideMenuHead{
-  background: #FAF7FA;
-  color:#504E51;
-  text-align: center;
-  height: 20vh;
-}#sideMenuHead h1{margin:auto;line-height: 20vh;}
-#sideMenu .btn {
-  border-radius: 0;
-  background: #FEFEFE;
-  color: black;
-  line-height: 10vh;
-  border: 1px solid #F7F7F7;
-  margin: 0;
+footer button{
+  border-radius: 50%;
+  font-size: 30px;
+  border: none;
+  color: #f85032;
+  width: 60px;
+  height: 60px;
+  transition: all .5s ease-in-out;
 }
-#sideMenu .btn:hover {
-  border-left: 2px solid grey;
+footer button:hover{
+  transform: rotateZ(360deg);
+  color: white;
+  background: #f85032;
 }
 
 @media screen and (max-width: 600px){
@@ -210,6 +182,9 @@ video {
   }
   #catimage:active{
     width:90%;
+  }
+  footer{
+    width: 100%;
   }
 }
 </style>

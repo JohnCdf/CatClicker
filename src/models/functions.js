@@ -43,36 +43,37 @@ const gamefunctions = {
       },1)
     },40000)
     setTimeout(function(){//wait 40 seconds and start counting 100click / .001 seconds
-      this.endEnding()
       this.endingCounter = setInterval(function(){
         store.commit('increment', 10000)
       },1)
     },50000)
   },
+
+
   endEnding: function(){
     clearInterval(this.endingCounter)
   },
 
   startMethod: function() {//will start the refresh interval and make it an object property.
-    //
     this.refreshData = setInterval(function(){
       /*
-      the refresh interval will upload all the data to the database every one second.
+      the refresh interval will upload all the data to the database every 1.5 seconds.
       this is so:
-        -firebase wont have to upload every single painful click
+        -firebase wont have to upload every single click
         -we can clearInterval whenever we want
         -it isnt inplemented directly in the view
       */
-
       let ref = firebase.database().ref("users").child(store.state.useruid);
-      ref.child("clicks").set(store.state.clicks)
+      let clicks = store.state.clicks;
 
-    }, 1000);
+      ref.child("clicks").set(clicks)
+
+    }, 1500);
     //
   },
 
   stopMethod: function() {
-    clearInterval(this.refreshData)
+    clearInterval(this.endingCounter)
   }
 
 
