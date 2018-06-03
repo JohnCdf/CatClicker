@@ -18,7 +18,7 @@ export const store = new Vuex.Store({
   },
 
   mutations: {
-    increment (state, n) {
+    increment (state, n=1) {
       state.clicks+=n
     }
   },

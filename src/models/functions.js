@@ -18,12 +18,12 @@ const gamefunctions = {
 
   endingBegin: function(){//this will start the counter for the ending
     this.endingCounter = setInterval(function(){
-      store.commit('increment',1)
+      store.commit('increment')
     },1000)
 
     setTimeout(function(){//wait three seconds and start counting 1click / .5 seconds
       this.endingCounter = setInterval(function(){
-        store.commit('increment',1)
+        store.commit('increment')
       },500)
     },3000)
 

@@ -45,7 +45,7 @@ export default {
   name: 'Game',
   methods: {
     incrementCounter: function(){
-      this.$store.commit('increment',1)
+      this.$store.commit('increment')
     },
     signOut: function(){
       gamefunctions.stopMethod()
