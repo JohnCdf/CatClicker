@@ -20,8 +20,8 @@
     <h2>Cat Clicker</h2>
     <em>Vue.js, Firebase, Bootstrap, jQuery</em>
     <p>Cat Clicker was originally a project I made as practice when I started learning <a href="http://knockoutjs.com//" target="_blank">Knockout.JS</a> on a
-    design patterns course for JS - After I made it, I put it up for my friends to check out. After showing them, they started competing and became
-  determined on getting to the end of the game. This game me the incentive and opportunity to build a full version to Cat Clicker.</p>
+    design patterns course. After I made it, I put it up for my friends to check out. After showing them, they started competing and became
+  determined on getting to the end of the game. This gave me the incentive to build a full version to Cat Clicker.</p>
   </div>
 
 </div>
