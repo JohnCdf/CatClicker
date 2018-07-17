@@ -8,7 +8,7 @@
   <hr>
   <a href="https://johncdf.keybase.pub/JohnDiaz/index.html">🕔 Website</a>
   <br>
-  <span>🏷️Front End Web Developer</span>
+  <span>🏷️Full Stack Developer</span>
   <hr>
   <ul>
     <li>#javascript</li>
