@@ -1,6 +1,6 @@
 # vuecatclicker
 
-> Cat Clicker game made with VUE
+> A game about cats
 
 ## Build Setup
 
