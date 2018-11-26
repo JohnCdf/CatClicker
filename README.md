@@ -1,6 +1,9 @@
 # vuecatclicker
 
-> A game about cats
+> A game about cats 
+
+NEEDS ASSETS TO BE MOVED SOMEWHERE ELSE
+Assets are way too heavy :<
 
 ## Build Setup
 
